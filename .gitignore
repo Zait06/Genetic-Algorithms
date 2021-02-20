@@ -2,3 +2,9 @@
 *.exe
 .vscode
 *.tmp
+*.csv
+*.out
+*.png
+*.pdf
+test
+main

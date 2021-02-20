@@ -5,12 +5,12 @@
 #include <cmath>
 
 Individual::Individual(int len){
-    allele = new int[len];
+    allele = new float[len];
     this->len = len;
     srand(time(NULL));
 }
 
-Individual::Individual(int *ale){
+Individual::Individual(float *ale){
     int i = 0;
     allele = ale;
     while(true){
@@ -27,7 +27,7 @@ Individual::Individual(){
 
 void Individual::setLength(int l){
     len = l;
-    allele = new int[l];
+    allele = new float[l];
 }
 
 int Individual::getLength(){
@@ -36,7 +36,7 @@ int Individual::getLength(){
 
 void Individual::initRandom(){
     for(int i=0; i<len; i++)
-        allele[i] = rand() % 2;
+        allele[i] = (float) (rand() % 2);
 }
 
 void Individual::computeFit(){
@@ -51,10 +51,10 @@ void Individual::initGrayCode(){
 
 void Individual::initZero(){
     for(int i=0; i<len; i++)
-        allele[i] = 0;
+        allele[i] = 0.0;
 }
 
-void Individual::set(int *s){
+void Individual::set(float *s){
     allele = s;
     computeFit();
 }
@@ -71,15 +71,15 @@ float Individual::getVe(){
     return ve;
 }
 
-int* Individual::getAle(){
+float* Individual::getAle(){
     return allele;
 }
 
-void Individual::setAllele(int i, int a){
+void Individual::setAllele(int i, float a){
     allele[i] = a;
 }
 
-int Individual::getAllele(int i){
+float Individual::getAllele(int i){
     return allele[i];
 }
 

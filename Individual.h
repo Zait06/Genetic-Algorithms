@@ -5,12 +5,12 @@ using namespace std;
 
 class Individual{
     private:
-        int *allele;
+        float *allele;
         int len;
         float fitness;
         float ve;
     public:
-        Individual(int *al);
+        Individual(float *al);
         Individual(int len);
         Individual();
         void setLength(int);
@@ -18,14 +18,14 @@ class Individual{
         void initZero();
         void initRandom();
         void initGrayCode();
-        void set(int *);
+        void set(float *);
         void computeFit();
         float getFitness();
         void setVe(float prob);
-        int getAllele(int);
-        void setAllele(int,int);
+        float getAllele(int);
+        void setAllele(int,float);
         float getVe();
-        int *getAle();
+        float *getAle();
         void print();
 };
 

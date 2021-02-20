@@ -15,11 +15,11 @@ Population Crossover::onePoint(Population pop){
 
     for(int i = 0; i < sz; i+=2){
         int pb00 = (int) rand()%(ln-1);
-        int *al00 = new int[ln];
-        int *al01 = new int[ln];
+        float *al00 = new float[ln];
+        float *al01 = new float[ln];
 
-        int *a = pop.getIndividual(i).getAle();
-        int *b = pop.getIndividual(i+1).getAle();
+        float *a = pop.getIndividual(i).getAle();
+        float *b = pop.getIndividual(i+1).getAle();
         
         for(int j = 0; j < pb00; j++){
             al00[j] = a[j];
@@ -58,11 +58,11 @@ Population Crossover::twoPoints(Population pop){
             pb00 = aux;
         }
         
-        int *al00 = new int[ln];
-        int *al01 = new int[ln];
+        float *al00 = new float[ln];
+        float *al01 = new float[ln];
 
-        int *a = pop.getIndividual(i).getAle();
-        int *b = pop.getIndividual(i+1).getAle();
+        float *a = pop.getIndividual(i).getAle();
+        float *b = pop.getIndividual(i+1).getAle();
         
         for(int j = 0; j < pb00; j++){
             al00[j] = a[j];

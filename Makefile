@@ -1,4 +1,4 @@
-run: Individual Population Selection Crossover Mutation gnuplot test
+run: limpiar Individual Population Selection Crossover Mutation gnuplot test
 test:
 	g++ test.cpp Individual.o Population.o Selection.o Crossover.o Mutation.o gnuplot.o -o test
 
@@ -19,3 +19,8 @@ Population: Population.cpp Population.h
 
 Individual: Individual.cpp Individual.h
 	g++ Individual.cpp -c
+
+limpiar:
+	rm -f *.o
+	rm -f *.csv
+	rm -f test

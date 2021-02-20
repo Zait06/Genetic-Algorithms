@@ -35,7 +35,7 @@ Individual Population::getIndividual(int index){
     return pop[index];
 }
 
-void Population::setIndividual(int index, int *ale){
+void Population::setIndividual(int index, float *ale){
     pop[index].set(ale);
 }
 

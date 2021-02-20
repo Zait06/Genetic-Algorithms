@@ -20,7 +20,7 @@ class Population{
         float getMin();
         Individual getIndividual(int index);
         Population join(Population p);
-        void setIndividual(int index, int *ale);
+        void setIndividual(int index, float *ale);
         void setIndividual(int index, Individual ind);
 };
 
