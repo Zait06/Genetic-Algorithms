@@ -1,6 +1,6 @@
 #ifndef MUTATION_H_
 #define MUTATION_H_
-#include "Population.h"
+#include "../Population/Population.h"
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>

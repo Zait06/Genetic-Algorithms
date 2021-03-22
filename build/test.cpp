@@ -1,8 +1,8 @@
-#include "Population.h"
-#include "Selection.h"
-#include "Crossover.h"
-#include "Mutation.h"
-#include "gnuplot.h"
+#include "../Population/Population.h"
+#include "../Selection/Selection.h"
+#include "../Crossover/Crossover.h"
+#include "../Mutation/Mutation.h"
+#include "../gnuplot/gnuplot.h"
 #include <iostream>
 #include <string>
 using namespace std;

@@ -1,6 +1,6 @@
 #ifndef SELECTION_H_
 #define SELECTION_H_
-#include "Population.h"
+#include "../Population/Population.h"
 #include <iostream>
 using namespace std;
 

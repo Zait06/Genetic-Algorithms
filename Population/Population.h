@@ -1,6 +1,6 @@
 #ifndef POPULATION_H_
 #define POPULATION_H_
-#include "Individual.h"
+#include "../Individual/Individual.h"
 #include <iostream>
 using namespace std;
 
