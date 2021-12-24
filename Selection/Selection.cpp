@@ -2,11 +2,13 @@
 #include <stdlib.h>
 #include <time.h>
 
-Selection::Selection(){
+template <typename T>
+Selection<T>::Selection(){
     srand(time(NULL));
 }
 
-Population Selection::roulette(Population pop){
+template <typename T>
+Population<T> Selection<T>::roulette(Population<T> pop){
     int sz = pop.getSize();
     Population p(sz);
     float sumve = 0.0;
@@ -31,11 +33,12 @@ Population Selection::roulette(Population pop){
     return p;
 }
 
-Population Selection::tournament(Population pop){
+template <typename T>
+Population<T> Selection<T>::tournament(Population<T> pop){
     int sz = pop.getSize();
     Population p(sz);
 
-    p.initPop(pop.getLen(),0);
+    p.initPop(pop.getLen(), 0);
 
     for(int i = 0; i < sz; i++){
         int p1 = rand() % sz;

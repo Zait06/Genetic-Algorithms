@@ -2,13 +2,12 @@
 #define SELECTION_H_
 #include "../Population/Population.h"
 #include <iostream>
-using namespace std;
 
+template <typename T>
 class Selection{
     public:
-        Selection();
-        Population roulette(Population p);
-        Population tournament(Population p);
+        static Population<T> roulette(Population<T> p);
+        static Population<T> tournament(Population<T> p);
 };
 
 #endif

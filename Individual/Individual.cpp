@@ -1,91 +1,137 @@
 #include "Individual.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <time.h>
+#include <ctime>
 #include <cmath>
 
-Individual::Individual(int len){
-    allele = new float[len];
-    this->len = len;
-    srand(time(NULL));
+template class Individual<int>;
+template class Individual<bool>;
+template class Individual<float>;
+
+template <typename T>
+Individual<T>::Individual(int len)
+{
+    this->allele = new T[len];
+    this->lenght = len;
 }
 
-Individual::Individual(float *ale){
+template <typename T>
+Individual<T>::Individual(T *ale)
+{
     int i = 0;
     allele = ale;
-    while(true){
-        if(ale[i] == '\0')
+    while (true)
+    {
+        if (ale[i] == '\0')
             break;
+        i++;
     }
-    len = i;
+    lenght = i;
     computeFit();
 }
 
-Individual::Individual(){
-    srand(time(NULL));
+template <typename T>
+Individual<T>::Individual()
+{
 }
 
-void Individual::setLength(int l){
-    len = l;
-    allele = new float[l];
+template <typename T>
+void Individual<T>::initRandom()
+{
+    if (std::is_same<T, bool>::value)
+    {
+        for (int i = 0; i < lenght; i++)
+            allele[i] = rand() % 2;
+    }
+    else
+    {
+        initRandom(lenght);
+    }
 }
 
-int Individual::getLength(){
-    return len;
+template <typename T>
+void Individual<T>::initRandom(T range)
+{
+    if (std::is_same<T, bool>::value)
+        initRandom();
+    for (int i = 0; i < lenght; i++)
+        allele[i] = randomNumber(range);
 }
 
-void Individual::initRandom(){
-    for(int i=0; i<len; i++)
-        allele[i] = (float) (rand() % 2);
+template <typename T>
+void Individual<T>::initRandom(T min, T max)
+{
+    if (std::is_same<T, bool>::value)
+        initRandom();
+    for (int i = 0; i < lenght; i++)
+        allele[i] = min + randomNumber(max - min);
 }
 
-void Individual::computeFit(){
+template <typename T>
+void Individual<T>::computeFit()
+{
     fitness = 0.0;
-    for(int i=len-1, j=0; i>=0; i--,j++)
-        fitness += (float) pow(allele[i]*2,j);
+    // TODO: Get the fitness
 }
 
-void Individual::initGrayCode(){
-    cout<<"A ver que pasa"<<endl;
-}
-
-void Individual::initZero(){
-    for(int i=0; i<len; i++)
+template <typename T>
+void Individual<T>::zeros()
+{
+    for (int i = 0; i < lenght; i++)
         allele[i] = 0.0;
 }
 
-void Individual::set(float *s){
+template <typename T>
+void Individual<T>::set(T *s)
+{
     allele = s;
     computeFit();
 }
 
-float Individual::getFitness(){
+template <typename T>
+float Individual<T>::getFitness()
+{
     return fitness;
 }
 
-void Individual::setVe(float prob){
+template <typename T>
+void Individual<T>::setVe(float prob)
+{
     ve = fitness / prob;
 }
 
-float Individual::getVe(){
+template <typename T>
+float Individual<T>::getVe()
+{
     return ve;
 }
 
-float* Individual::getAle(){
+template <typename T>
+T *Individual<T>::get()
+{
     return allele;
 }
 
-void Individual::setAllele(int i, float a){
+template <typename T>
+void Individual<T>::setGene(int i, T a)
+{
     allele[i] = a;
 }
 
-float Individual::getAllele(int i){
+template <typename T>
+T Individual<T>::getGene(int i)
+{
     return allele[i];
 }
 
-void Individual::print(){
-    for(int i=0; i<len; i++){
-        cout<<allele[i];
-    }
-    printf("\t%4.2f\t%2.2f\n",fitness,ve);
+template <typename T>
+void Individual<T>::print()
+{
+    for (int i = 0; i < lenght; i++)
+        std::cout << "|" << allele[i];
+    std::cout << "|" << std::endl;
+}
+
+template <typename T>
+T Individual<T>::randomNumber(T range)
+{
+    return T(rand()) / (T(RAND_MAX / (range)));
 }

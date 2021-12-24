@@ -4,9 +4,10 @@
 #include <iostream>
 using namespace std;
 
+template <typename T>
 class Population{
     private:
-        Individual *pop;
+        Individual<T> *pop;
         int length, size, option;
         float sum, prob;
     public:
@@ -18,10 +19,10 @@ class Population{
         void computeSumProb();
         float getMax();
         float getMin();
-        Individual getIndividual(int index);
+        Individual<T> getIndividual(int index);
         Population join(Population p);
-        void setIndividual(int index, float *ale);
-        void setIndividual(int index, Individual ind);
+        void setIndividual(int index, T *ale);
+        void setIndividual(int index, Individual<T> ind);
 };
 
 #endif

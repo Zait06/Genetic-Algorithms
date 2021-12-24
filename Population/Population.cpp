@@ -1,14 +1,16 @@
 #include "Population.h"
 #include <algorithm>
 
-Population::Population(int s){
+template <typename T>
+Population<T>::Population(int s){
     pop = new Individual[s];
     size = s;
     sum = 0;
     prob = 0;
 }
 
-void Population::initPop(int l, int op){
+template <typename T>
+void Population<T>::initPop(int l, int op){
     length = l;
     option = op;
     for(int i=0; i<size; i++){
@@ -27,23 +29,28 @@ void Population::initPop(int l, int op){
     computeSumProb();
 }
 
-int Population::getSize(){
+template <typename T>
+int Population<T>::getSize(){
     return size;
 }
 
-Individual Population::getIndividual(int index){
+template <typename T>
+Individual<T> Population<T>::getIndividual(int index){
     return pop[index];
 }
 
-void Population::setIndividual(int index, float *ale){
+template <typename T>
+void Population<T>::setIndividual(int index, T *ale){
     pop[index].set(ale);
 }
 
-void Population::setIndividual(int index, Individual ind){
+template <typename T>
+void Population<T>::setIndividual(int index, Individual<T> ind){
     pop[index] = ind;
 }
 
-void Population::computeSumProb(){
+template <typename T>
+void Population<T>::computeSumProb(){
     sum = 0;
     prob = 0;
     for(int i=0; i<size; i++)
@@ -55,11 +62,13 @@ void Population::computeSumProb(){
         pop[i].setVe(prob);
 }
 
-int Population::getLen(){
+template <typename T>
+int Population<T>::getLen(){
     return length;
 }
 
-float Population::getMax(){
+template <typename T>
+float Population<T>::getMax(){
     float max = 0;
     for(int i=0; i<size; i++){
         float aux = pop[i].getFitness();
@@ -69,7 +78,8 @@ float Population::getMax(){
     return max;
 }
 
-float Population::getMin(){
+template <typename T>
+float Population<T>::getMin(){
     float min = pop[0].getFitness();
     for(int i=0; i<size; i++){
         float aux = pop[i].getFitness();
@@ -79,14 +89,15 @@ float Population::getMin(){
     return min;
 }
 
-void Population::print(){
+template <typename T>
+void Population<T>::print(){
     for(int i=0; i<size; i++){
         pop[i].print();
     }
 }
 
-
-Population insertsortPop(Population p, int l, int o){
+template <typename T>
+Population<T> insertsortPop(Population<T> p, int l, int o){
     int s = p.getSize();
     int j = 0;
     for(int i = 0; i < s; i++){
@@ -108,7 +119,8 @@ Population insertsortPop(Population p, int l, int o){
     return b;
 }
 
-Population Population::join(Population p){
+template <typename T>
+Population<T> Population<T>::join(Population<T> p){
     Population jp = Population(size*2);
     jp.initPop(length, option);
 

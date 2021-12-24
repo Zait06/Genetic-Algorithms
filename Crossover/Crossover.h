@@ -1,14 +1,13 @@
 #ifndef CROSSOVER_H_
 #define CROSSOVER_H_
 #include "../Population/Population.h"
-#include <iostream>
-using namespace std;
 
+template <typename T>
 class Crossover{
     public:
         Crossover();
-        Population onePoint(Population pop);
-        Population twoPoints(Population pop);
+        Population<T> onePoint(Population<T> pop);
+        Population<T> twoPoints(Population<T> pop);
 };
 
 #endif
