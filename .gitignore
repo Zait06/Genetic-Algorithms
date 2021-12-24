@@ -8,3 +8,4 @@
 *.pdf
 test
 main
+build/
