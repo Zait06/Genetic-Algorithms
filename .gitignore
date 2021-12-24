@@ -1,6 +1,5 @@
 *.o
 *.exe
-.vscode
 *.tmp
 *.csv
 *.out
