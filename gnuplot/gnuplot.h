@@ -8,7 +8,7 @@ class gnuplot{
     public:
         gnuplot();
         ~gnuplot();
-        void operator() (const string & comand);
+        void operator<<(const string & comand);
     protected:
         FILE *gnuplotpipe;
 };

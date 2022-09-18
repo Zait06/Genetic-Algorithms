@@ -8,11 +8,11 @@ gnuplot::gnuplot(){
 }
 
 gnuplot::~gnuplot(){
-    // pclose(gnuplotpipe);
-    // fprintf(gnuplotpipe, "exit\n");
+    fprintf(gnuplotpipe, "exit\n");
+    pclose(gnuplotpipe);
 }
 
-void gnuplot::operator() (const string & command){
+void gnuplot::operator<<(const string & command){
     fprintf(gnuplotpipe,"%s\n", command.c_str());
     fflush(gnuplotpipe);
     fflush(gnuplotpipe);
