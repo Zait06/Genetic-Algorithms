@@ -13,6 +13,9 @@ private:
 
     // Methods
     T randomNumber(T range);
+    void computeFitness();
+    void fitnessBool();
+    void fitnessNumber();
 
 public:
     // Attributes
@@ -25,11 +28,10 @@ public:
 
     // Methods
     void zeros();
-    void initRandom();
-    void initRandom(T);
-    void initRandom(T, T);
+    void init();
+    void init(T);
+    void init(T, T);
     void set(T *);
-    void computeFit();
     float getFitness();
     void setVe(float prob);
     T getGene(int);

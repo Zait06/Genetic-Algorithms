@@ -25,65 +25,46 @@ Individual<T>::Individual(T *ale)
         i++;
     }
     lenght = i;
-    computeFit();
 }
 
 template <typename T>
-Individual<T>::Individual()
+Individual<T>::Individual() {}
+
+template <typename T>
+void Individual<T>::init()
 {
+    if (std::is_same<T, bool>::value) {
+        for (int i = 0; i < lenght; i++) allele[i] = rand() % 2;
+    }else init(lenght);
 }
 
 template <typename T>
-void Individual<T>::initRandom()
-{
-    if (std::is_same<T, bool>::value)
-    {
-        for (int i = 0; i < lenght; i++)
-            allele[i] = rand() % 2;
-    }
-    else
-    {
-        initRandom(lenght);
-    }
-}
-
-template <typename T>
-void Individual<T>::initRandom(T range)
+void Individual<T>::init(T range)
 {
     if (std::is_same<T, bool>::value)
-        initRandom();
+        init();
     for (int i = 0; i < lenght; i++)
         allele[i] = randomNumber(range);
 }
 
 template <typename T>
-void Individual<T>::initRandom(T min, T max)
+void Individual<T>::init(T min, T max)
 {
-    if (std::is_same<T, bool>::value)
-        initRandom();
+    if (std::is_same<T, bool>::value) init();
     for (int i = 0; i < lenght; i++)
         allele[i] = min + randomNumber(max - min);
 }
 
 template <typename T>
-void Individual<T>::computeFit()
-{
-    fitness = 0.0;
-    // TODO: Get the fitness
-}
-
-template <typename T>
 void Individual<T>::zeros()
 {
-    for (int i = 0; i < lenght; i++)
-        allele[i] = 0.0;
+    for (int i = 0; i < lenght; i++) allele[i] = 0.0;
 }
 
 template <typename T>
 void Individual<T>::set(T *s)
 {
     allele = s;
-    computeFit();
 }
 
 template <typename T>
@@ -135,3 +116,21 @@ T Individual<T>::randomNumber(T range)
 {
     return T(rand()) / (T(RAND_MAX / (range)));
 }
+
+template <typename T>
+void Individual<T>::computeFitness()
+{
+    if (std::is_same<T, bool>::value) fitnessBool();
+    else fitnessNumber();
+}
+
+template <typename T>
+void Individual<T>::fitnessBool() {
+    fitness = 0;
+    for(int i = lenght - 1, j = 0; i >= 0; i--, j++) {
+        fitness += allele[i] ? pow(2, j) : 0;  
+    }
+}
+
+template <typename T>
+void Individual<T>::fitnessNumber() {}
