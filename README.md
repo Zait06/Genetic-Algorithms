@@ -1,5 +1,13 @@
 # Genetic Algorithms
 
+## Prerequisits
+- gnuplot
+
+## Compile
+```sh
+cmake -DEIGEN_BUILD_DOC=OFF ..
+```
+
 ## Population type
     - Binary
 

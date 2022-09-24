@@ -2,30 +2,19 @@
 #include <ctime>
 #include <cmath>
 
-template class Individual<int>;
-template class Individual<bool>;
-template class Individual<float>;
+template class Individual<GA_INT>;
+template class Individual<GA_BOOL>;
+template class Individual<GA_FLOAT>;
+template class Individual<GA_DOUBLE>;
 
 template <typename T>
-Individual<T>::Individual(int len)
-{
-    this->allele = new T[len];
-    this->lenght = len;
+Individual<T>::Individual(int len) {
+    allele = Eigen::ArrayX<T>(len);
+    lenght = len;
 }
 
 template <typename T>
-Individual<T>::Individual(T *ale)
-{
-    int i = 0;
-    allele = ale;
-    while (true)
-    {
-        if (ale[i] == '\0')
-            break;
-        i++;
-    }
-    lenght = i;
-}
+Individual<T>::Individual(Individual &other) {}
 
 template <typename T>
 Individual<T>::Individual() {}
@@ -33,104 +22,106 @@ Individual<T>::Individual() {}
 template <typename T>
 void Individual<T>::init()
 {
-    if (std::is_same<T, bool>::value) {
-        for (int i = 0; i < lenght; i++) allele[i] = rand() % 2;
-    }else init(lenght);
+    allele = Eigen::ArrayX<T>::Random(lenght);
 }
 
 template <typename T>
 void Individual<T>::init(T range)
 {
-    if (std::is_same<T, bool>::value)
+    if (std::is_same<T, bool>::value) {
         init();
-    for (int i = 0; i < lenght; i++)
-        allele[i] = randomNumber(range);
+        return;
+    }
+    Eigen::ArrayX<double> aux = Eigen::ArrayX<double>::Random(lenght);
+    aux = (aux + Eigen::ArrayX<double>::Constant(lenght, 1)) * (range / 2.0);
+    aux = (aux + Eigen::ArrayX<double>::Constant(lenght, 0));
+    allele = aux.cast<T>();
 }
 
 template <typename T>
 void Individual<T>::init(T min, T max)
 {
-    if (std::is_same<T, bool>::value) init();
-    for (int i = 0; i < lenght; i++)
-        allele[i] = min + randomNumber(max - min);
+    if (std::is_same<T, bool>::value) {
+        init();
+        return;
+    }
+    double range = (double) max - min;
+    Eigen::ArrayX<double> aux = Eigen::ArrayX<double>::Random(lenght);
+    aux = (aux + Eigen::ArrayX<double>::Constant(lenght, 1)) * (range / 2.0);
+    aux = (aux + Eigen::ArrayX<double>::Constant(lenght, min));
+    allele = aux.cast<T>();
 }
 
 template <typename T>
 void Individual<T>::zeros()
 {
-    for (int i = 0; i < lenght; i++) allele[i] = 0.0;
+    allele = Eigen::ArrayX<T>::Zero(lenght);
 }
 
-template <typename T>
-void Individual<T>::set(T *s)
-{
-    allele = s;
-}
+// template <typename T>
+// void Individual<T>::set(T *s)
+// {
+//     allele = s;
+// }
+
+// template <typename T>
+// float Individual<T>::getFitness()
+// {
+//     return fitness;
+// }
+
+// template <typename T>
+// void Individual<T>::setVe(float prob)
+// {
+//     ve = fitness / prob;
+// }
+
+// template <typename T>
+// float Individual<T>::getVe()
+// {
+//     return ve;
+// }
+
+// template <typename T>
+// T *Individual<T>::get()
+// {
+//     return allele;
+// }
+
+// template <typename T>
+// void Individual<T>::setGene(int i, T a)
+// {
+//     allele(i) = a;
+// }
+
+// template <typename T>
+// T Individual<T>::getGene(int i)
+// {
+//     return allele(i);
+// }
+
+// template <typename T>
+// T Individual<T>::randomNumber(T range)
+// {
+//     return T(rand()) / (T(RAND_MAX / (range)));
+// }
+
+// template <typename T>
+// void Individual<T>::computeFitness()
+// {
+//     if (std::is_same<T, bool>::value) fitnessBool();
+//     else fitnessNumber();
+// }
+
+// template <typename T>
+// void Individual<T>::fitnessBool() {
+//     fitness = 0;
+//     for(int i = lenght - 1, j = 0; i >= 0; i--, j++) {
+//         fitness += allele(i) ? pow(2, j) : 0;  
+//     }
+// }
 
 template <typename T>
-float Individual<T>::getFitness()
-{
-    return fitness;
+void Individual<T>::print() {
+    std::cout << allele << std::endl;
 }
-
-template <typename T>
-void Individual<T>::setVe(float prob)
-{
-    ve = fitness / prob;
-}
-
-template <typename T>
-float Individual<T>::getVe()
-{
-    return ve;
-}
-
-template <typename T>
-T *Individual<T>::get()
-{
-    return allele;
-}
-
-template <typename T>
-void Individual<T>::setGene(int i, T a)
-{
-    allele[i] = a;
-}
-
-template <typename T>
-T Individual<T>::getGene(int i)
-{
-    return allele[i];
-}
-
-template <typename T>
-void Individual<T>::print()
-{
-    for (int i = 0; i < lenght; i++)
-        std::cout << "|" << allele[i];
-    std::cout << "|" << std::endl;
-}
-
-template <typename T>
-T Individual<T>::randomNumber(T range)
-{
-    return T(rand()) / (T(RAND_MAX / (range)));
-}
-
-template <typename T>
-void Individual<T>::computeFitness()
-{
-    if (std::is_same<T, bool>::value) fitnessBool();
-    else fitnessNumber();
-}
-
-template <typename T>
-void Individual<T>::fitnessBool() {
-    fitness = 0;
-    for(int i = lenght - 1, j = 0; i >= 0; i--, j++) {
-        fitness += allele[i] ? pow(2, j) : 0;  
-    }
-}
-
-template <typename T>
-void Individual<T>::fitnessNumber() {}
