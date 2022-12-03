@@ -14,9 +14,7 @@ private:
     float fitness;
     float ve;
     
-
     // Methods
-    // T randomNumber(T range);
     // void computeFitness();
     // void fitnessBool();
     // void fitnessNumber();
