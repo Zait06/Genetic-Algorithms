@@ -7,41 +7,27 @@
 template <typename T>
 class Individual {
  private:
-  // Attributes
-  Eigen::ArrayX<T> allele;
+  Eigen::VectorX<T> allele;
   float fitness;
   float ve;
 
-  // Methods
-  // void computeFitness();
-  // void fitnessBool();
-  // void fitnessNumber();
-
  public:
-  // Attributes
   int lenght;
-  Eigen::ArrayX<T> getAllele();
 
-  // Constructor
-  // Individual(T *al);
-  Individual();
   Individual(int len);
   Individual(Individual& other);
+  Individual(Eigen::VectorX<T> allele);
 
-  // Methods
   void init();
   void init(T);
   void init(T, T);
   void zeros();
-  // void set(T *);
-  // float getFitness();
-  // void setVe(float prob);
-  // T getGene(int);
-  // void setGene(int, T);
-  // float getVe();
-  // T *get();
+
+  Eigen::VectorX<T> getAllele();
+  void setAllele(Eigen::VectorX<T> a);
+
   friend std::ostream& operator<<(std::ostream& out, Individual<T>& ind) {
-    out << ind.getAllele();
+    out << ind.getAllele().transpose();
     return out;
   }
 };
